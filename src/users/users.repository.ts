@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { USERS_MOCK } from '../__mocks__/USERS_MOCK';
 
-
 @Injectable()
 export class UsersRepository {
 
@@ -34,8 +33,6 @@ export class UsersRepository {
       user.email = updateUser.email ?? user.email;
       user.gender = updateUser.gender ?? user.gender;
       user.avatar = updateUser.avatar ?? user.avatar;
-    } else {
-      throw new Error(`User with id ${id} not found`);
     }
 
     return user;
@@ -44,12 +41,10 @@ export class UsersRepository {
   delete(id: string) {
     const index = USERS_MOCK.findIndex((user) => user.id === id);
 
-    if (index === -1) {
-      throw new Error(`User with id ${id} not found`);
+    if (index > -1) {
+      USERS_MOCK.splice(index, 1);
+
+      return id;
     }
-
-    USERS_MOCK.splice(index, 1);
-
-    return id;
   }
 }
