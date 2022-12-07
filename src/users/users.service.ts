@@ -25,14 +25,22 @@ export class UsersService {
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
-    return this.usersRepository.update(id, updateUserDto);
+    const updatedUser = this.usersRepository.update(id, updateUserDto);
+
+    if (!updatedUser) {
+      throw new NotFoundException(`User ${id} not found`);
+    }
+
+    return updatedUser;
   }
 
   remove(id: string) {
     const userId = this.usersRepository.delete(id);
 
     if (!userId) {
-      throw new Error(`User with id ${id} not found`);
+      throw new NotFoundException(`User ${id} not found`);
     }
+
+    return userId;
   }
 }
