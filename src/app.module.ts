@@ -4,10 +4,10 @@ import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
   imports: [
-    ThrottlerModule.forRoot({
-      ttl: 1,
-      limit: 20,
-    }),
+    // ThrottlerModule.forRoot({
+    //   ttl: 1,
+    //   limit: 20,
+    // }),
     UsersModule
   ],
 })

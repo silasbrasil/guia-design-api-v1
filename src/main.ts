@@ -1,4 +1,4 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import helmet from 'helmet';
@@ -10,8 +10,8 @@ async function bootstrap() {
   });
 
   app
+    .enableVersioning({ type: VersioningType.URI })
     .use(helmet())
-    .setGlobalPrefix('v1')
     .useGlobalPipes(validationPipe)
     .enableCors();
 
