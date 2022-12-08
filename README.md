@@ -22,9 +22,34 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Guia de Design de API
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+O objetivo desse projeto é implementar uma API simples seguindo alguns guias de design de APIs como referência. Todos os padrões citados aqui serão implementados no projeto. Para que isso seja possível os padrões serão acrescentados assim que a implementação estiver bem definida.
+
+## Métodos HTTP
+
+Os seguintes métodos HTTP devem ser utilizados seguindo as definiçòes abaixo. Em caso da API não suportar um método específico um HTTP Status Code igual a 405 `Method Not Allowed` deve ser retornado.
+
+### GET
+Mais informações [aqui](https://opensource.zalando.com/restful-api-guidelines/#get)
+
+### POST
+...
+
+### PUT
+...
+
+### PATCH
+...
+
+### DELETE
+...
+
+## Referências
+
+ - [Zalando RESTful API and Event Guidelines](https://opensource.zalando.com/restful-api-guidelines/)
+ - [Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html)
+ - [REST API Design - Resource Modeling](https://www.thoughtworks.com/insights/blog/rest-api-design-resource-modeling)
 
 ## Installation
 
