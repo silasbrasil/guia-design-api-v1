@@ -10,8 +10,8 @@ export class UsersService {
     return this.usersRepository.create(createUserDto);
   }
 
-  findAll() {
-    return this.usersRepository.findAll();
+  findAll(maxPageSize: number) {
+    return this.usersRepository.findAll(maxPageSize);
   }
 
   findOne(id: string) {

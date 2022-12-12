@@ -18,8 +18,7 @@ export class UsersRepository {
       .find((user) => user.id === id);
   }
 
-  // Must be paginated
-  findAll() {
+  findAll(maxPageSize: number) {
     return USERS_MOCK;
   }
 
