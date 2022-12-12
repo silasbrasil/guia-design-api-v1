@@ -26,15 +26,27 @@
 
 O objetivo desse projeto é implementar uma API simples seguindo alguns guias de design de APIs como referência. Todos os padrões citados aqui serão implementados no projeto. Para que isso seja possível os padrões serão acrescentados assim que a implementação estiver bem definida.
 
-## Métodos HTTP
+## REST Basics - URLs
 
+- Não deve usar `/api` como url base;
+- Deve usar nome de recursos no plural, exemplo, `/users`, `/books`, `payments`;
+- Deve usar kebab-case para paths com segmentos `/shipment-orders/{shipment-order-id}`;
+
+Mais informações veja [REST Basics - URLS](https://opensource.zalando.com/restful-api-guidelines/#urls)
+
+## Métodos HTTP
 Os seguintes métodos HTTP devem ser utilizados seguindo as definiçòes abaixo. Em caso da API não suportar um método específico um HTTP Status Code igual a 405 `Method Not Allowed` deve ser retornado.
 
 ### GET
+Os métodos do tipo `GET` não deverão alterar o estado da aplicação, ou seja, sem efeitos colaterais, de modo que nenhuma alteração deverá ser feita após o término da requisição. O método `GET` nunca deverá aceita `body payload`.
+Tipos de retorno:
+ - Um recurso único com código `200 OK` ou gerar um `404 Not Found` se o recurso não for encontrado;
+ - Uma coleção de recursos com código `200 OK` (mesmo que vazia) ou `404 Not Found` (se a coleção não existir);
+
 Mais informações [aqui](https://opensource.zalando.com/restful-api-guidelines/#get)
 
 ### POST
-...
+Mais informações [aqui](https://opensource.zalando.com/restful-api-guidelines/#post)
 
 ### PUT
 ...
@@ -44,6 +56,8 @@ Mais informações [aqui](https://opensource.zalando.com/restful-api-guidelines/
 
 ### DELETE
 ...
+
+
 
 ## Referências
 
