@@ -6,7 +6,8 @@ import helmet from 'helmet';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const validationPipe = new ValidationPipe({
-    whitelist: true
+    whitelist: true,
+    transform: true
   });
 
   app

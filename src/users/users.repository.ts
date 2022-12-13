@@ -19,7 +19,7 @@ export class UsersRepository {
   }
 
   findAll(maxPageSize: number) {
-    return USERS_MOCK;
+    return USERS_MOCK.slice(0, maxPageSize);
   }
 
   update(id: string, updateUser: Partial<User>) {

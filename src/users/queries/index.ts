@@ -1,1 +1,1 @@
-export * from './max-page-size';
+export * from './find-all-query';

@@ -7,11 +7,12 @@ import {
   Param,
   Delete,
   Query,
+  DefaultValuePipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { MaxPageSize } from './queries';
+import { FindAllQuery } from './queries';
 
 @Controller({
   version: '1',
@@ -26,8 +27,9 @@ export class UsersController {
   }
 
   @Get()
-  findAll(@Query() maxPageSize: MaxPageSize) {
-    return this.usersService.findAll(maxPageSize.value);
+  findAll(@Query() findAllQuery: FindAllQuery) {
+    console.log(findAllQuery);
+    return this.usersService.findAll(findAllQuery.maxPageSize);
   }
 
   @Get(':id')
