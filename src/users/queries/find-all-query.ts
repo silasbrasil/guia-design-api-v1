@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsNumber, IsOptional, Max, Min } from 'class-validator';
+import { IsNumber, IsOptional, IsUUID, Max, Min } from 'class-validator';
 
 export class FindAllQuery {
   @IsOptional()
@@ -8,4 +8,8 @@ export class FindAllQuery {
   @Min(1)
   @Type(() => Number)
   maxPageSize = 50;
+
+  @IsOptional()
+  @IsUUID()
+  pageToken: string;
 }
