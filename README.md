@@ -46,18 +46,22 @@ Tipos de retorno:
 Mais informações [aqui](https://opensource.zalando.com/restful-api-guidelines/#get)
 
 ### POST
+Requisição do tipo `POST` são usadas para criar um único recurso em uma coleção de recursos relacionados ao endpoint. A semântica relacionada ao recurso do endpoint é melhor descrito como "por favor adicione esse dado representado em anexo para a coleção identificada na URL".
+
+- Na resposta de sucesso do `POST`, o servidor irá criar um ou vários novos recursos e prover suas URI/URIs para acesso em sua resposta;
+
+- Uma requisição bem sucedida do método `POST` retorna `201 Created` se um novo recurso foi criado ou `202 Accepted` se uma requisição foi aceita para ser processado assincronamente.
+
 Mais informações [aqui](https://opensource.zalando.com/restful-api-guidelines/#post)
 
 ### PUT
-...
+Mais informações [aqui](https://opensource.zalando.com/restful-api-guidelines/#put)
 
 ### PATCH
-...
+Mais informações [aqui](https://opensource.zalando.com/restful-api-guidelines/#patch)
 
 ### DELETE
-...
-
-
+Mais informações [aqui](https://opensource.zalando.com/restful-api-guidelines/#delete)
 
 ## Referências
 
