@@ -7,7 +7,7 @@ export class FindAllQuery {
   @Max(100)
   @Min(1)
   @Type(() => Number)
-  maxPageSize = 50;
+  maxPageSize = 25;
 
   @IsOptional()
   @IsUUID()

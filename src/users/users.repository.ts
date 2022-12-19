@@ -5,7 +5,7 @@ import { USERS_MOCK } from '../__mocks__/USERS_MOCK';
 @Injectable()
 export class UsersRepository {
 
-  create(user: Omit<User, 'id'>) {
+  create(user: Omit<User, 'id' | 'adressess'>) {
     const id = 'uuid';
     return USERS_MOCK.push({
       ...user,

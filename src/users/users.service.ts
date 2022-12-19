@@ -10,8 +10,15 @@ export class UsersService {
     return this.usersRepository.create(createUserDto);
   }
 
-  findAll(maxPageSize: number) {
-    return this.usersRepository.findAll(maxPageSize);
+  findAll(maxPageSize: number, currentPage: number) {
+    const users = this.usersRepository.findAll(maxPageSize);
+
+    const response = {
+      results: users,
+      nextPageToken: 'sdasdasdas'
+    };
+
+    return response;
   }
 
   findOne(id: string) {
