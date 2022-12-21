@@ -4,7 +4,7 @@ import { UsersRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersRepository: UsersRepository) { }
+  constructor(private readonly usersRepository: UsersRepository) {}
 
   create(createUserDto: CreateUserDto) {
     return this.usersRepository.create(createUserDto);
@@ -15,7 +15,7 @@ export class UsersService {
 
     const response = {
       results: users,
-      nextPageToken: 'sdasdasdas'
+      nextPageToken: 'sdasdasdas',
     };
 
     return response;

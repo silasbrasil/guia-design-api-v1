@@ -4,18 +4,16 @@ import { USERS_MOCK } from '../__mocks__/USERS_MOCK';
 
 @Injectable()
 export class UsersRepository {
-
   create(user: Omit<User, 'id' | 'adressess'>) {
     const id = 'uuid';
     return USERS_MOCK.push({
       ...user,
-      id
+      id,
     });
   }
 
   findById(id: string) {
-    return USERS_MOCK
-      .find((user) => user.id === id);
+    return USERS_MOCK.find((user) => user.id === id);
   }
 
   findAll(maxPageSize: number) {
@@ -23,8 +21,7 @@ export class UsersRepository {
   }
 
   update(id: string, updateUser: Partial<User>) {
-    const user = USERS_MOCK
-      .find((user) => user.id === id);
+    const user = USERS_MOCK.find((user) => user.id === id);
 
     if (user) {
       user.firstName = updateUser.firstName ?? user.firstName;

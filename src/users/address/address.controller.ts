@@ -1,11 +1,22 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from '@nestjs/common';
 import { FindAllQuery } from '../queries';
+import { CreateAddressDto, UpdateAddressDto } from './dtos';
 
 @Controller({
   version: '1',
-  path: 'users/:userId/addresses'
+  path: 'users/:userId/addresses',
 })
 export class AddressController {
+  @Post()
+  create(@Body() createAddressDto: CreateAddressDto) {}
 
   @Get()
   findAll(@Param() params: any, @Query() findAllQuery: FindAllQuery) {
@@ -14,7 +25,7 @@ export class AddressController {
 
     return {
       result: [],
-      nextPageToken: 'sdadasdasda'
+      nextPageToken: 'sdadasdasda',
     };
   }
 
@@ -25,7 +36,10 @@ export class AddressController {
 
     return {
       result: [],
-      nextPageToken: 'sdadasdasda'
+      nextPageToken: 'sdadasdasda',
     };
   }
+
+  @Patch(':id')
+  update(@Body() updateAddressDto: UpdateAddressDto) {}
 }

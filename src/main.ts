@@ -7,7 +7,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const validationPipe = new ValidationPipe({
     whitelist: true,
-    transform: true
+    transform: true,
   });
 
   app

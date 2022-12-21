@@ -13,10 +13,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FindAllQuery } from './queries';
 
-
 @Controller({
   version: '1',
-  path: 'users'
+  path: 'users',
 })
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -28,9 +27,8 @@ export class UsersController {
 
   @Get()
   findAll(@Query() findAllQuery: FindAllQuery) {
-    let page = 0;
+    const page = 0;
     if (findAllQuery.pageToken) {
-      
     }
     return this.usersService.findAll(findAllQuery.maxPageSize, page);
   }
@@ -41,7 +39,10 @@ export class UsersController {
   }
 
   @Patch(':userId')
-  update(@Param('userId') userId: string, @Body() updateUserDto: UpdateUserDto) {
+  update(
+    @Param('userId') userId: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
     return this.usersService.update(userId, updateUserDto);
   }
 

@@ -1,4 +1,4 @@
-import { Address } from "../address/entities";
+import { Address } from '../address/entities';
 
 export class User {
   id: string;
@@ -7,5 +7,5 @@ export class User {
   email: string;
   gender: string;
   avatar: string;
-  adressess: Address[]
+  adressess: Address[];
 }
