@@ -1,46 +1,39 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotImplementedException } from '@nestjs/common';
 import { User } from './entities/user.entity';
-import { USERS_MOCK } from '../__mocks__/USERS_MOCK';
+import { PrismaService } from 'src/prisma.service';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class UsersRepository {
-  create(user: Omit<User, 'id' | 'adressess'>) {
-    const id = 'uuid';
-    return USERS_MOCK.push({
-      ...user,
-      id,
-    });
+  constructor(private prisma: PrismaService) {}
+
+  create(newUser: Prisma.UserCreateInput) {
+    return this.prisma.user.create({ data: newUser });
   }
 
   findById(id: string) {
-    return USERS_MOCK.find((user) => user.id === id);
+    return this.prisma.user.findUnique({
+      select: {
+        id: true,
+        firstName: true,
+        lastName: true,
+        email: true,
+        gender: true,
+        avatar: true
+      },
+      where: { id }
+    });
   }
 
-  findAll(maxPageSize: number) {
-    return USERS_MOCK.slice(0, maxPageSize);
+  findAll(maxPageSize: number): User[] {
+    throw new NotImplementedException();
   }
 
-  update(id: string, updateUser: Partial<User>) {
-    const user = USERS_MOCK.find((user) => user.id === id);
-
-    if (user) {
-      user.firstName = updateUser.firstName ?? user.firstName;
-      user.lastName = updateUser.lastName ?? user.lastName;
-      user.email = updateUser.email ?? user.email;
-      user.gender = updateUser.gender ?? user.gender;
-      user.avatar = updateUser.avatar ?? user.avatar;
-    }
-
-    return user;
+  update(id: string, updateUser: Partial<User>): User {
+    throw new NotImplementedException();
   }
 
-  delete(id: string) {
-    const index = USERS_MOCK.findIndex((user) => user.id === id);
-
-    if (index > -1) {
-      USERS_MOCK.splice(index, 1);
-
-      return id;
-    }
+  delete(id: string): String {
+    throw new NotImplementedException();
   }
 }

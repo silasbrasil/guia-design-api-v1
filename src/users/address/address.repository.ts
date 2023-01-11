@@ -1,45 +1,27 @@
-import { ADDRESSES_MOCK } from "src/__mocks__/ADDRESSES_MOCK";
+import { NotImplementedException } from "@nestjs/common";
+import { Prisma } from "@prisma/client";
 import { Address } from "./entities";
 
 
 export class AddressRepository {
-  create(address: Omit<Address, 'id'>) {
-    const id = 'uuid';
-    return ADDRESSES_MOCK.push({
-      ...address,
-      id,
-    });
+  create(address: Prisma.AddressCreateInput): Promise<Address> {
+    throw new NotImplementedException();
   }
 
-  findById(id: string) {
-    return ADDRESSES_MOCK.find((user) => user.id === id);
+  findById(id: string): Promise<Address> {
+    throw new NotImplementedException();
   }
 
   // Maybe it is can be called by list
-  findAll(maxPageSize: number) {
-    return ADDRESSES_MOCK.slice(0, maxPageSize);
+  findAll(maxPageSize: number): Promise<Address[]> {
+    throw new NotImplementedException();
   }
 
-  update(id: string, updateAddress: Partial<Address>) {
-    const address = ADDRESSES_MOCK.find((address) => address.id === id);
-
-    if (address) {
-      address.street = updateAddress.street ?? address.street;
-      address.city = updateAddress.city ?? address.city;
-      address.state = updateAddress.state ?? address.state;
-      address.zipCode = updateAddress.zipCode ?? address.zipCode;
-    }
-
-    return address;
+  update(id: string, updateAddress: Partial<Address>): Promise<Address> {
+    throw new NotImplementedException();
   }
 
-  delete(id: string) {
-    const index = ADDRESSES_MOCK.findIndex((user) => user.id === id);
-
-    if (index > -1) {
-      ADDRESSES_MOCK.splice(index, 1);
-
-      return id;
-    }
+  delete(id: string): Promise<String> {
+    throw new NotImplementedException();
   }
 }
