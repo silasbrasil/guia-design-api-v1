@@ -1,7 +1,8 @@
-import { Inject, Injectable, NotImplementedException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException, NotImplementedException } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { PrismaService } from 'src/prisma.service';
 import { Prisma } from '@prisma/client';
+import { UserNotFoundException } from './execeptions';
 
 @Injectable()
 export class UsersRepository {
@@ -19,9 +20,9 @@ export class UsersRepository {
         lastName: true,
         email: true,
         gender: true,
-        avatar: true
+        avatar: true,
       },
-      where: { id }
+      where: { id },
     });
   }
 
@@ -30,7 +31,7 @@ export class UsersRepository {
     if (!lastUserId) {
       return this.prisma.user.findMany({
         orderBy: { id: 'asc' },
-        take: maxPageSize
+        take: maxPageSize,
       });
     }
 
@@ -40,15 +41,37 @@ export class UsersRepository {
         id: { gt: lastUserId }
       },
       orderBy: { id: 'asc' },
-      take: maxPageSize
+      take: maxPageSize,
     });
   }
 
-  update(id: string, updateUser: Partial<User>): User {
-    throw new NotImplementedException();
+  async update(userId: string, updateUser: Partial<User>): Promise<Partial<User>> {
+    try {
+      const result = await this.prisma.user.update({
+        where: { id: userId },
+        data: updateUser,
+      });
+
+      return result;
+    } catch(err) {
+      if (err.code === 'P2025') return null; // Not Found
+      console.log(err);
+      throw new Error(err.message);
+    }
   }
 
-  delete(id: string): String {
-    throw new NotImplementedException();
+  async updateOrThrowNotFound(userId: string, updateUser: Partial<User>): Promise<Partial<User>> {
+    const result = await this.update(userId, updateUser);
+    if (!result) throw new UserNotFoundException(userId);
+
+    return result;
+  }
+
+  async delete(userId: string): Promise<void> {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId }
+    });
+
+    if (!user) throw new UserNotFoundException(userId);
   }
 }

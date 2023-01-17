@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   Query,
+  HttpStatus,
+  HttpCode,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -22,6 +24,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
+  @HttpCode(201)
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
@@ -37,6 +40,7 @@ export class UsersController {
   }
 
   @Patch(':userId')
+  @HttpCode(200)
   update(
     @Param('userId') userId: string,
     @Body() updateUserDto: UpdateUserDto,
@@ -45,6 +49,7 @@ export class UsersController {
   }
 
   @Delete(':userId')
+  @HttpCode(204)
   remove(@Param('userId') userId: string) {
     return this.usersService.remove(userId);
   }

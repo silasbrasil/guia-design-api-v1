@@ -36,23 +36,14 @@ export class UsersService {
     return response;
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    const updatedUser = this.usersRepository.update(id, updateUserDto);
-
-    if (!updatedUser) {
-      throw new NotFoundException(`User ${id} not found`);
-    }
+  async update(userId: string, updateUserDto: UpdateUserDto) {
+    const updatedUser = await this.usersRepository
+      .updateOrThrowNotFound(userId, updateUserDto);
 
     return updatedUser;
   }
 
   remove(id: string) {
-    const userId = this.usersRepository.delete(id);
-
-    if (!userId) {
-      throw new NotFoundException(`User ${id} not found`);
-    }
-
-    return userId;
+    return this.usersRepository.delete(id);
   }
 }
