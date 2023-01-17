@@ -11,7 +11,7 @@ export class UsersRepository {
     return this.prisma.user.create({ data: newUser });
   }
 
-  findById(id: string) {
+  findById(id: string): Promise<Partial<User>> {
     return this.prisma.user.findUnique({
       select: {
         id: true,
@@ -25,8 +25,23 @@ export class UsersRepository {
     });
   }
 
-  findAll(maxPageSize: number): User[] {
-    throw new NotImplementedException();
+  findAll(maxPageSize: number, lastUserId?: string): Promise<Partial<User>[]> {
+    // First Page
+    if (!lastUserId) {
+      return this.prisma.user.findMany({
+        orderBy: { id: 'asc' },
+        take: maxPageSize
+      });
+    }
+
+    // Next Page
+    return this.prisma.user.findMany({
+      where: {
+        id: { gt: lastUserId }
+      },
+      orderBy: { id: 'asc' },
+      take: maxPageSize
+    });
   }
 
   update(id: string, updateUser: Partial<User>): User {

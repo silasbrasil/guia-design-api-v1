@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Base64Encoder } from 'src/utils';
 import { CreateUserDto, UpdateUserDto } from './dto';
 import { UsersRepository } from './users.repository';
 
@@ -10,17 +11,6 @@ export class UsersService {
     return this.usersRepository.create(createUserDto);
   }
 
-  findAll(maxPageSize: number, currentPage: number) {
-    const users = this.usersRepository.findAll(maxPageSize);
-
-    const response = {
-      results: users,
-      nextPageToken: 'sdasdasdas',
-    };
-
-    return response;
-  }
-
   findOne(id: string) {
     const user = this.usersRepository.findById(id);
 
@@ -29,6 +19,21 @@ export class UsersService {
     }
 
     return user;
+  }
+
+  async findAll(maxPageSize: number, lastUserId?: string) {
+    const results = await this.usersRepository.findAll(maxPageSize, lastUserId);
+
+    const nextPageToken = results.length === maxPageSize
+      ? new Base64Encoder(results[results.length - 1].id).value
+      : null;
+
+    const response = {
+      results,
+      nextPageToken,
+    };
+
+    return response;
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {

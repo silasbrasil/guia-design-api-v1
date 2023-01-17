@@ -1,5 +1,5 @@
-import { Type } from 'class-transformer';
-import { IsNumber, IsOptional, IsUUID, Max, Min } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import { IsBase64, IsNumber, IsOptional, IsUUID, Max, Min } from 'class-validator';
 
 export class FindAllQuery {
   @IsOptional()
@@ -11,5 +11,8 @@ export class FindAllQuery {
 
   @IsOptional()
   @IsUUID()
+  @Transform((data) => {
+    return Buffer.from(data.value, 'base64').toString('utf8');
+  }, { toClassOnly: true })
   pageToken: string;
 }
