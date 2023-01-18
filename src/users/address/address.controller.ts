@@ -9,7 +9,15 @@ import {
 } from '@nestjs/common';
 import { FindAllQuery } from '../queries';
 import { CreateAddressDto, UpdateAddressDto } from './dtos';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('users/:userId/addresses')
 @Controller({
   version: '1',
   path: 'users/:userId/addresses',
