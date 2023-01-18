@@ -1,4 +1,3 @@
-
 export class Base64Encoder {
   private buffer: Buffer;
 

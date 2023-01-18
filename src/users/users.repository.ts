@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException, NotImplementedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { User } from './entities/user.entity';
 import { PrismaService } from 'src/prisma.service';
 import { Prisma } from '@prisma/client';
@@ -38,14 +38,17 @@ export class UsersRepository {
     // Next Page
     return this.prisma.user.findMany({
       where: {
-        id: { gt: lastUserId }
+        id: { gt: lastUserId },
       },
       orderBy: { id: 'asc' },
       take: maxPageSize,
     });
   }
 
-  async update(userId: string, updateUser: Partial<User>): Promise<Partial<User>> {
+  async update(
+    userId: string,
+    updateUser: Partial<User>,
+  ): Promise<Partial<User>> {
     try {
       const result = await this.prisma.user.update({
         where: { id: userId },
@@ -53,14 +56,17 @@ export class UsersRepository {
       });
 
       return result;
-    } catch(err) {
+    } catch (err) {
       if (err.code === 'P2025') return null; // Not Found
       console.log(err);
       throw new Error(err.message);
     }
   }
 
-  async updateOrThrowNotFound(userId: string, updateUser: Partial<User>): Promise<Partial<User>> {
+  async updateOrThrowNotFound(
+    userId: string,
+    updateUser: Partial<User>,
+  ): Promise<Partial<User>> {
     const result = await this.update(userId, updateUser);
     if (!result) throw new UserNotFoundException(userId);
 
@@ -69,7 +75,7 @@ export class UsersRepository {
 
   async delete(userId: string): Promise<void> {
     const user = await this.prisma.user.findUnique({
-      where: { id: userId }
+      where: { id: userId },
     });
 
     if (!user) throw new UserNotFoundException(userId);

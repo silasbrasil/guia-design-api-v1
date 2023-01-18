@@ -7,14 +7,12 @@ import {
   Param,
   Delete,
   Query,
-  HttpStatus,
   HttpCode,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { FindAllQuery } from './queries';
-import { find } from 'rxjs';
 
 @Controller({
   version: '1',
@@ -36,7 +34,10 @@ export class UsersController {
 
   @Get()
   findAll(@Query() findAllQuery: FindAllQuery) {
-    return this.usersService.findAll(findAllQuery.maxPageSize, findAllQuery.pageToken);
+    return this.usersService.findAll(
+      findAllQuery.maxPageSize,
+      findAllQuery.pageToken,
+    );
   }
 
   @Patch(':userId')

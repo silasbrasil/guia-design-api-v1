@@ -1,6 +1,6 @@
-import { Injectable, NotImplementedException } from "@nestjs/common";
-import { Prisma } from "@prisma/client";
-import { Address } from "./entities";
+import { Injectable, NotImplementedException } from '@nestjs/common';
+import { Prisma } from '@prisma/client';
+import { Address } from './entities';
 
 @Injectable()
 export class AddressRepository {
@@ -21,7 +21,7 @@ export class AddressRepository {
     throw new NotImplementedException();
   }
 
-  delete(id: string): Promise<String> {
+  delete(id: string): Promise<string> {
     throw new NotImplementedException();
   }
 }

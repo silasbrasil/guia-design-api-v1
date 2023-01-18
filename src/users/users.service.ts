@@ -24,9 +24,10 @@ export class UsersService {
   async findAll(maxPageSize: number, lastUserId?: string) {
     const results = await this.usersRepository.findAll(maxPageSize, lastUserId);
 
-    const nextPageToken = results.length === maxPageSize
-      ? new Base64Encoder(results[results.length - 1].id).value
-      : null;
+    const nextPageToken =
+      results.length === maxPageSize
+        ? new Base64Encoder(results[results.length - 1].id).value
+        : null;
 
     const response = {
       results,
@@ -37,8 +38,10 @@ export class UsersService {
   }
 
   async update(userId: string, updateUserDto: UpdateUserDto) {
-    const updatedUser = await this.usersRepository
-      .updateOrThrowNotFound(userId, updateUserDto);
+    const updatedUser = await this.usersRepository.updateOrThrowNotFound(
+      userId,
+      updateUserDto,
+    );
 
     return updatedUser;
   }
