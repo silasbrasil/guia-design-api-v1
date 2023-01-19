@@ -8,6 +8,7 @@ import {
   Delete,
   Query,
   HttpCode,
+  HttpStatus,
 } from '@nestjs/common';
 import { FindAllQuery } from './queries';
 import { UsersService } from './users.service';
@@ -31,9 +32,12 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  @HttpCode(201)
+  @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Cria um novo usuário' })
-  @ApiResponse({ status: 403, description: 'Você não tem permissão de cria um usuário' })
+  @ApiResponse({
+    status: HttpStatus.FORBIDDEN,
+    description: 'Você não tem permissão de cria um usuário',
+  })
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
@@ -41,8 +45,8 @@ export class UsersController {
   @Get()
   @ApiOperation({ summary: 'Lista os usuários ativos' })
   @ApiResponse({
-    status: 200,
-    description: 'Lista de usuários ativos'
+    status: HttpStatus.OK,
+    description: 'Lista de usuários ativos',
   })
   findAll(@Query() findAllQuery: FindAllQuery) {
     return this.usersService.findAll(
@@ -54,19 +58,24 @@ export class UsersController {
   @Get(':userId')
   @ApiOperation({ summary: 'Busca um usuário com o :userId passado' })
   @ApiResponse({
-    status: 200,
-    description: 'Usuário encontrado com sucesso'
+    status: HttpStatus.OK,
+    description: 'Usuário encontrado com sucesso',
   })
   @ApiResponse({
-    status: 404,
-    description: 'Usuário não encontrado'
+    status: HttpStatus.NOT_FOUND,
+    description: 'Usuário não encontrado',
   })
   findOne(@Param('userId') userId: string): Promise<Partial<User>> {
     return this.usersService.findOne(userId);
   }
 
   @Patch(':userId')
-  @HttpCode(200)
+  @HttpCode(HttpStatus.OK)
+  @ApiOperation({ summary: 'Atualiza os dados do usuário' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Usuário atualizado com sucesso',
+  })
   update(
     @Param('userId') userId: string,
     @Body() updateUserDto: UpdateUserDto,
@@ -75,7 +84,12 @@ export class UsersController {
   }
 
   @Delete(':userId')
-  @HttpCode(204)
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiOperation({ summary: 'Desativa o usuário' })
+  @ApiResponse({
+    status: HttpStatus.NO_CONTENT,
+    description: 'Usuário desativado com sucesso',
+  })
   remove(@Param('userId') userId: string) {
     return this.usersService.remove(userId);
   }

@@ -5,6 +5,7 @@ import { AppModule } from './app.module';
 import helmet from 'helmet';
 
 async function bootstrap() {
+  const PORT = 3000;
   const app = await NestFactory.create(AppModule);
   const validationPipe = new ValidationPipe({
     whitelist: true,
@@ -15,6 +16,7 @@ async function bootstrap() {
     .setTitle('Api de Usuários')
     .setDescription('Descrição sobre a API de Usuários')
     .setVersion('1.0')
+    .addServer(`localhost:${PORT}/v1`, 'Local')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('v1/docs', app, document);
@@ -25,6 +27,6 @@ async function bootstrap() {
     .useGlobalPipes(validationPipe)
     .enableCors();
 
-  await app.listen(3000);
+  await app.listen(PORT);
 }
 bootstrap();
