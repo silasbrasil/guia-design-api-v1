@@ -27,6 +27,10 @@ export class CreateUserDto {
   gender: string;
 
   @ApiProperty({ required: false })
+  @IsOptional()
+  active: boolean;
+
+  @ApiProperty({ required: false })
   @IsUrl()
   @IsOptional()
   avatar: string;

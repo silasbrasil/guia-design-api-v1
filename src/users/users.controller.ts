@@ -32,27 +32,37 @@ export class UsersController {
 
   @Post()
   @HttpCode(201)
-  @ApiOperation({ summary: 'Create user' })
-  @ApiResponse({ status: 403, description: 'Forbidden.' })
+  @ApiOperation({ summary: 'Cria um novo usuário' })
+  @ApiResponse({ status: 403, description: 'Você não tem permissão de cria um usuário' })
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
-  @Get(':userId')
+  @Get()
+  @ApiOperation({ summary: 'Lista os usuários ativos' })
   @ApiResponse({
     status: 200,
-    description: 'The found record'
+    description: 'Lista de usuários ativos'
   })
-  findOne(@Param('userId') userId: string): Promise<Partial<User>> {
-    return this.usersService.findOne(userId);
-  }
-
-  @Get()
   findAll(@Query() findAllQuery: FindAllQuery) {
     return this.usersService.findAll(
       findAllQuery.maxPageSize,
       findAllQuery.pageToken,
     );
+  }
+
+  @Get(':userId')
+  @ApiOperation({ summary: 'Busca um usuário com o :userId passado' })
+  @ApiResponse({
+    status: 200,
+    description: 'Usuário encontrado com sucesso'
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Usuário não encontrado'
+  })
+  findOne(@Param('userId') userId: string): Promise<Partial<User>> {
+    return this.usersService.findOne(userId);
   }
 
   @Patch(':userId')

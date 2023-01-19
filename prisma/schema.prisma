@@ -17,6 +17,7 @@ model User {
   email     String
   gender    String?
   avatar    String?
+  active    Boolean?  @default(true)
   addresses Address[]
 
   @@map("users")
