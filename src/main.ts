@@ -16,7 +16,7 @@ async function bootstrap() {
     .setTitle('Api de Usuários')
     .setDescription('Descrição sobre a API de Usuários')
     .setVersion('1.0')
-    .addServer(`localhost:${PORT}/v1`, 'Local')
+    .addServer(`http://localhost:${PORT}/v1`, 'Local')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('v1/docs', app, document);
